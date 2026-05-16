@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 260 260" role="img" aria-labelledby="title desc">
+  <title id="title">ITI Aswan Favicon</title>
+  <desc id="desc">Aswan branch ITI logo favicon</desc>
+  <rect width="260" height="260" rx="32" fill="transparent" />
+  <path d="M50 60c0-20 16-36 36-36h24v88c0 22-18 40-40 40H50V60Z" fill="#B92429" />
+  <circle cx="68" cy="42" r="20" fill="#B92429" />
+  <path d="M110 60h90c20 0 36 16 36 36v100c0 24-18 44-42 44H110V60Z" fill="#B92429" />
+  <circle cx="206" cy="82" r="18" fill="#FFFFFF" />
+  <path d="M110 84h42v78c0 18-14 32-32 32H110V84Z" fill="#B92429" opacity="0.98" />
+</svg>
