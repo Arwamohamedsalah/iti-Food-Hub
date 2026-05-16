@@ -4,6 +4,7 @@ import { supabase, Order } from '../lib/supabase';
 import { RESTAURANTS } from '../data/constants';
 import { useTranslation } from 'react-i18next';
 import { formatEgp, getOrderTotals } from '../lib/orderTotals';
+import { dateLocale, restaurantNameFromStored } from '../lib/locale';
 
 interface Props {
   sessionId: string;
@@ -44,16 +45,15 @@ function groupByRestaurant(orders: Order[]): RestaurantGroup[] {
   });
 }
 
-const trackColors = {
-  'UI/UX Design': 'bg-blue-100 text-blue-900 border-blue-200',
-  'Frontend Development': 'bg-emerald-100 text-emerald-900 border-emerald-200',
-  'Full Stack Development': 'bg-violet-100 text-violet-900 border-violet-200',
-  'Back-End Development': 'bg-rose-100 text-rose-900 border-rose-200',
-  'Data Science': 'bg-amber-100 text-amber-900 border-amber-200',
-  'Embedded Systems': 'bg-orange-100 text-orange-900 border-orange-200',
-  'Cyber Security': 'bg-fuchsia-100 text-fuchsia-900 border-fuchsia-200',
-  'Digital Marketing': 'bg-indigo-100 text-indigo-900 border-indigo-200',
-  'Business Analysis': 'bg-cyan-100 text-cyan-900 border-cyan-200',
+const trackColors: Record<string, string> = {
+  '9 Month .NET': 'bg-blue-100 text-blue-900 border-blue-200',
+  'UI/UX': 'bg-cyan-100 text-cyan-900 border-cyan-200',
+  '2D Graphics': 'bg-rose-100 text-rose-900 border-rose-200',
+  'Frontend & Cross-Platform Mobile Application':
+    'bg-fuchsia-100 text-fuchsia-900 border-fuchsia-200',
+  'Social Media Marketing': 'bg-indigo-100 text-indigo-900 border-indigo-200',
+  'Software Engineering Fundamentals': 'bg-amber-100 text-amber-900 border-amber-200',
+  'Full Stack Web Development - MEARN': 'bg-emerald-100 text-emerald-900 border-emerald-200',
 };
 
 function resolveDeliveryFee(order: Order): number {
@@ -180,7 +180,7 @@ export default function OrderSummary({ sessionId, refreshTrigger }: Props) {
             <div key={row.restaurant} className="rounded-xl border border-iti-100 bg-iti-50/40 px-3 py-2 text-xs">
               <div className="flex items-center gap-2 font-semibold text-gray-900 mb-1">
                 <span>{getRestaurantEmoji(row.restaurant)}</span>
-                <span>{row.restaurant}</span>
+                <span>{restaurantNameFromStored(row.restaurant, t, i18n.language)}</span>
                 <span className="text-gray-500">({row.orders} {t("orders")})</span>
               </div>
               <div className="flex justify-between text-gray-600">
@@ -240,12 +240,14 @@ export default function OrderSummary({ sessionId, refreshTrigger }: Props) {
                     <div className="flex items-center gap-2 flex-wrap mb-2">
                       <span className="font-semibold text-gray-900 text-sm">{order.student_name}</span>
                       <span className={`text-xs font-medium rounded-full px-2 py-0.5 border ${getTrackColor(order.track)}`}>
-                        {order.track}
+                        {t(order.track)}
                       </span>
                     </div>
                     <div className="flex items-center gap-2 mb-2">
                       <span className="text-lg">{getRestaurantEmoji(order.restaurant)}</span>
-                      <span className="text-sm text-gray-800 font-medium">{order.restaurant}</span>
+                      <span className="text-sm text-gray-800 font-medium">
+                        {restaurantNameFromStored(order.restaurant, t, i18n.language)}
+                      </span>
                     </div>
                     <p className="text-sm text-gray-600 mb-2">{order.items}</p>
                     {(() => {
@@ -270,7 +272,7 @@ export default function OrderSummary({ sessionId, refreshTrigger }: Props) {
                     })()}
                     <div className="flex items-center justify-between">
                       <p className="text-xs text-gray-500">
-                        {new Date(order.created_at).toLocaleString('en-US', {
+                        {new Date(order.created_at).toLocaleString(dateLocale(i18n.language), {
                           hour: '2-digit',
                           minute: '2-digit',
                           month: 'short',

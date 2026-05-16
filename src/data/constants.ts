@@ -1,20 +1,21 @@
-export const TRACKS = [
-  'UI/UX Design',
-  'Frontend Development',
-  'Full Stack Development',
-  'Back-End Development',
-  'Data Science',
-  'Embedded Systems',
-  'Cyber Security',
-  'Digital Marketing',
-  'Business Analysis',
-];
+import { AL_ROKEN_MENU } from './menus/alRokenMenu';
+import { SUSHI_GRILL_MENU } from './menus/sushiGrillMenu';
+import { ESMO_A_MENU } from './menus/esmoAMenu';
+import { GEDO_ABDO_MENU } from './menus/gedoAbdoMenu';
+import { GARGABETA_MENU } from './menus/gargabetaMenu';
+import { BATATES_KTEER_MENU } from './menus/batatesKteerMenu';
+import { ASWAN_TRACKS } from './aswanTracks';
+
+/** Active ICC tracks at ITI Aswan branch (see aswanTracks.ts). */
+export const TRACKS = [...ASWAN_TRACKS];
 
 export interface MenuItem {
   id: string;
   name: string;
   nameAr: string;
   price: number;
+  section?: string;
+  sectionAr?: string;
 }
 
 export interface Restaurant {
@@ -40,7 +41,7 @@ export const RESTAURANTS: Restaurant[] = [
     nameAr: 'الونش',
     emoji: '🍽️',
     category: 'Egyptian Restaurant',
-    description: 'A casual Egyptian restaurant with a wide variety of everyday dishes',
+    description: 'Egyptian restaurant with a wide variety of everyday dishes',
     color: 'bg-red-950/60 border-red-500/30',
     popular: ['Meat Fiteer', 'Falafel Sandwich', 'Mixed Grill'],
     menu: [
@@ -123,13 +124,56 @@ export const RESTAURANTS: Restaurant[] = [
     nameAr: 'بوشنكي',
     emoji: '🍔',
     category: 'Burgers & Fast Food',
-    description: 'American-style burgers and fries',
+    description: 'Burgers and fries',
     color: 'bg-rose-950/60 border-rose-500/30',
-    popular: ['AKM Burger', 'Crispy Chicken', 'Double Smash'],
+    popular: ['AKM', 'M4', 'Poshinki', 'SCAR-L'],
     menu: [
-      { id: 'akm-burger', name: 'AKM Burger', nameAr: 'برجر أكم', price: 85 },
-      { id: 'crispy-chicken', name: 'Crispy Chicken', nameAr: 'فراخ مقرمشة', price: 75 },
-      { id: 'double-smash', name: 'Double Smash', nameAr: 'دبل سماش', price: 110 },
+      { id: 'hot-sauce', name: 'Hot Sauce', nameAr: 'صوص حار', price: 10 },
+      { id: 'ranch-sauce', name: 'Ranch Sauce', nameAr: 'صوص رانش', price: 10 },
+      { id: 'texas-sauce', name: 'Texas Sauce', nameAr: 'صوص تكساس', price: 20 },
+      { id: 'cheddar-sauce', name: 'Cheddar Sauce', nameAr: 'صوص شيدر', price: 20 },
+      {
+        id: 'akm',
+        name: 'AKM',
+        nameAr: 'قطعة لحمة بلدي، خس، طماطم، خيار مخلل، روز بيف، بصل، صوص التكساس، صوص كاتشب + بطاطس',
+        price: 120,
+      },
+      {
+        id: 'm4',
+        name: 'M4',
+        nameAr: '٢ قطعة لحمة بلدي، خس، بصل، طماطم، خيار مخلل، روز بيف، صوص التكساس، صوص الكاتشب + بطاطس',
+        price: 165,
+      },
+      {
+        id: 'poshinki-burger',
+        name: 'Poshinki',
+        nameAr: 'قطعة لحمة بلدي، قطعتين فرايد تشكن، خس، طماطم، بصل، خيار مخلل، صوص تكساس، صوص شيدر، صوص رانش، روز بيف + بطاطس',
+        price: 180,
+      },
+      {
+        id: 'ump',
+        name: 'UMP',
+        nameAr: 'قطعة لحمة بلدي، شريحة جبنة مقلية، خس، طماطم، خيار مخلل، روز بيف، بصل، صوص التكساس، صوص الشيدر، صوص الكاتشب + بطاطس',
+        price: 140,
+      },
+      {
+        id: 'kar',
+        name: 'KAR',
+        nameAr: 'أربع قطع فرايد تشكن، خس، طماطم، خيار مخلل، تركي مدخن، بصل، صوص كاتشب، صوص رانش، صوص شيدر + بطاطس',
+        price: 170,
+      },
+      {
+        id: 'awm',
+        name: 'AWM',
+        nameAr: 'قطعتين فرايد تشكن، خس، طماطم، خيار مخلل، تركي مدخن، بصل، صوص كاتشب، صوص الرانش، صوص شيدر + بطاطس',
+        price: 120,
+      },
+      {
+        id: 'scar-l',
+        name: 'SCAR-L',
+        nameAr: '٦ قطع جمبري، صوص بوشنكي، خس، طماطم، بصل + بطاطس',
+        price: 150,
+      },
     ],
   },
   {
@@ -138,84 +182,69 @@ export const RESTAURANTS: Restaurant[] = [
     nameAr: 'الركن الدمشقي',
     emoji: '🧆',
     category: 'Syrian Cuisine',
-    description: 'Authentic Syrian street food',
+    description: 'Syrian pizza, shawarma, grills & mansaf',
     color: 'bg-pink-950/60 border-pink-500/30',
-    popular: ['Shawarma', 'Falafel Wrap', 'Hummus Plate'],
-    menu: [
-      { id: 'shawarma', name: 'Shawarma', nameAr: 'شاورما', price: 65 },
-      { id: 'falafel-wrap', name: 'Falafel Wrap', nameAr: 'لفة فلافل', price: 45 },
-      { id: 'hummus-plate', name: 'Hummus Plate', nameAr: 'طبق حمص', price: 55 },
+    popular: [
+      'Meat Shawarma Syrian Bread (M)',
+      'Chicken Shawarma Arabi Meal',
+      'Al-Roken Pizza (M)',
+      'Broasted Meal (4 pcs)',
     ],
+    menu: AL_ROKEN_MENU,
   },
   {
     id: 'sushi-grill',
-    name: 'Sushi & Grill',
-    nameAr: 'سوشي وجريل',
+    name: 'Sushi and Grill',
+    nameAr: 'سوشي اند جريل',
     emoji: '🍱',
-    category: 'Japanese Fusion',
-    description: 'Sushi rolls and grilled specialties',
+    category: 'Varied Everyday Food',
+    description: 'Sushi and burger restaurant',
     color: 'bg-slate-900/80 border-slate-700/50',
-    popular: ['California Roll', 'Grilled Salmon', 'Dragon Roll'],
-    menu: [
-      { id: 'california-roll', name: 'California Roll', nameAr: 'كاليفورنيا رول', price: 120 },
-      { id: 'grilled-salmon', name: 'Grilled Salmon', nameAr: 'سلمون مشوي', price: 180 },
-      { id: 'dragon-roll', name: 'Dragon Roll', nameAr: 'دراجون رول', price: 150 },
-    ],
+    popular: ['Dragon Roll', 'Philadelphia Roll', 'Spider Roll', 'Cheese Burger'],
+    menu: SUSHI_GRILL_MENU,
   },
   {
     id: 'esmo-a',
-    name: 'Esmo A',
-    nameAr: 'اسمه إيه',
-    emoji: '🍲',
-    category: 'Egyptian Home Cooking',
-    description: 'Traditional Egyptian home-style meals',
-    color: 'bg-emerald-950/60 border-emerald-500/30',
-    popular: ['Koshary', 'Ful Medames', 'Molokhia'],
-    menu: [
-      { id: 'koshary', name: 'Koshary', nameAr: 'كشري', price: 45 },
-      { id: 'ful-medames', name: 'Ful Medames', nameAr: 'فول مدمس', price: 35 },
-      { id: 'molokhia', name: 'Molokhia', nameAr: 'ملوخية', price: 70 },
-    ],
-  },
-  {
-    id: 'havana',
-    name: 'Havana',
-    nameAr: 'هافانا',
+    name: 'Esmoh A',
+    nameAr: 'إسمه إيه',
     emoji: '🍕',
-    category: 'Pizza & Italian',
-    description: 'Wood-fired pizzas and Italian dishes',
-    color: 'bg-blue-950/60 border-blue-500/30',
-    popular: ['Margherita Pizza', 'Pepperoni Pizza', 'Pasta Carbonara'],
-    menu: [
-      { id: 'margherita-pizza', name: 'Margherita Pizza', nameAr: 'بيتزا مارجريتا', price: 95 },
-      { id: 'pepperoni-pizza', name: 'Pepperoni Pizza', nameAr: 'بيتزا بيبروني', price: 115 },
-      { id: 'pasta-carbonara', name: 'Pasta Carbonara', nameAr: 'باستا كاربونارا', price: 85 },
-    ],
+    category: 'Pizza & Feteer',
+    description: 'Italian pizza, feteer, burgers & pasta',
+    color: 'bg-emerald-950/60 border-emerald-500/30',
+    popular: ['Meat Pizza (M)', 'Margherita Pizza (M)', 'Super Cheesy Burger', 'Negresco Pasta'],
+    menu: ESMO_A_MENU,
   },
   {
     id: 'gedo-abdo',
     name: 'Gedo Abdo',
-    nameAr: 'جدو عبده',
-    emoji: '🥙',
-    category: 'Egyptian Sandwiches',
-    description: 'Famous Egyptian sandwiches and wraps',
+    nameAr: 'جدو عبدو',
+    emoji: '🍕',
+    category: 'Pizza & Alexandrian Pie',
+    description: 'Pizza, pie, tasa & pasta',
     color: 'bg-amber-950/60 border-amber-500/30',
-    popular: ['Taameya Sandwich', 'Liver Sandwich', 'Kofta Sandwich'],
-    menu: [
-      { id: 'taameya-sandwich', name: 'Taameya Sandwich', nameAr: 'ساندويتش طعمية', price: 25 },
-      { id: 'liver-sandwich', name: 'Liver Sandwich', nameAr: 'ساندويتش كبدة', price: 35 },
-      { id: 'kofta-sandwich', name: 'Kofta Sandwich', nameAr: 'ساندويتش كفتة', price: 40 },
-    ],
+    popular: ['Gedo Abdo Special (M)', 'Sujuk Kiri Pie (M)', 'Mixed Meat Tasa', 'Nutella (L)'],
+    menu: GEDO_ABDO_MENU,
+  },
+  {
+    id: 'batates-kteer',
+    name: 'Batates Kteer',
+    nameAr: 'بطاطس كتير',
+    emoji: '🍟',
+    category: 'Fast Food',
+    description: 'Syrian bread, French rolls & fries packets',
+    color: 'bg-amber-950/60 border-amber-500/30',
+    popular: ['Crispy', 'Zinger Mozzarella', 'Batates Kteer', 'Chicken Shawarma'],
+    menu: BATATES_KTEER_MENU,
   },
   {
     id: 'gargabeta',
     name: 'Gargabeta',
     nameAr: 'جرجبيتا',
-    emoji: '🥘',
-    category: 'Egyptian Restaurant',
-    description: 'A casual Egyptian restaurant with a wide variety of everyday dishes',
+    emoji: '🍔',
+    category: 'Burgers & Grills',
+    description: 'Burgers, hawawshi, pasta, sandwiches & meals',
     color: 'bg-orange-950/60 border-orange-500/30',
-    popular: ['Mixed Grill', 'Chicken Fiteer', 'Koshary'],
-    menu: [],
+    popular: ['Gargabeta Burger', 'Mood Box', 'Azouma Box', 'Kofta Meal'],
+    menu: GARGABETA_MENU,
   },
 ];
